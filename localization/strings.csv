@@ -1,0 +1,85 @@
+key,en,ru
+UI_TITLE,THE IRON COVENANT,ЖЕЛЕЗНЫЙ ЗАВЕТ
+UI_SUBTITLE,CIVIC RITUAL APPARATUS // SHIFT 03,ГРАЖДАНСКИЙ РИТУАЛЬНЫЙ АППАРАТ // СМЕНА 03
+UI_OPERATIVE_INSTRUMENTS,OPERATIVE INSTRUMENTS,ПРИБОРЫ ОПЕРАТОРА
+UI_VITALS_CAPTION,◉ VITALS,◉ ЖИЗНЕННЫЕ ПОКАЗАТЕЛИ
+UI_BOILER_PRESSURE,◉ BOILER PRESSURE,◉ ДАВЛЕНИЕ КОТЛА
+UI_LIFE_VESSEL,LIFE VESSEL,ЖИЗНЕННЫЙ СОСУД
+UI_HP,HP,ОЗ
+UI_BLOCK,BLOCK,ЗАЩИТА
+UI_PRESSURE,PRESSURE,ДАВЛЕНИЕ
+UI_DOOM_DIAL,DOOM DIAL,ЦИФЕРБЛАТ РОКА
+UI_VICE_SOCKETS,VICE SOCKETS,ЯЧЕЙКИ ПОРОКОВ
+UI_FIELD_APPARATUS,FIELD APPARATUS,ПОЛЕВОЙ АППАРАТ
+UI_PROCESS_ENEMY_TURN,PROCESS ENEMY TURN,ОБРАБОТАТЬ ХОД ВРАГА
+UI_ARCHIVE_FILES_CLOSED,ARCHIVE FILES ▸,АРХИВНЫЕ ДЕЛА ▸
+UI_ARCHIVE_FILES_OPEN,ARCHIVE FILES ▾,АРХИВНЫЕ ДЕЛА ▾
+UI_RUN_SEED,Run seed,Сид забега
+UI_FILE_NEW_RUN,FILE NEW RUN,ОФОРМИТЬ НОВЫЙ ЗАБЕГ
+UI_ARCHIVE_OPTIONAL,ARCHIVE CONTROL IS OPTIONAL,АРХИВНОЕ УПРАВЛЕНИЕ НЕОБЯЗАТЕЛЬНО
+UI_DRAW,DRAW,КОЛОДА
+UI_DISCARD,DISCARD,СБРОС
+UI_ENEMY_SLOT,ENEMY SLOT {index},ЯЧЕЙКА ВРАГА {index}
+UI_MODULE_BAY,MODULE BAY {index},МОДУЛЬ {index}
+UI_DOOM_INTAKE,DOOM INTAKE,ПРИЁМ РОКА
+UI_RITUAL_PRESS,RITUAL PRESS,РИТУАЛЬНЫЙ ПРЕСС
+UI_SEAL_RITUAL,SEAL RITUAL,ЗАПЕЧАТАТЬ РИТУАЛ
+UI_COMMITTED,Committed,В ритуале
+UI_COMMITTED_COUNT,Committed: {count} cards,В ритуале: {count} карт
+UI_LAST_FORM,Last form,Последняя форма
+UI_NO_FILES,no files,нет карт
+UI_INSPECTOR_OF_COMPLIANCE,INSPECTOR OF COMPLIANCE,ИНСПЕКТОР ПОДЧИНЕНИЯ
+UI_AUDIT_MODULE,AUDIT MODULE 01,МОДУЛЬ АУДИТА 01
+BATTLE_INTEGRITY,Integrity,Целостность
+BATTLE_INTENT,Intent,Намерение
+BATTLE_INTENT_MANDATORY_FEE,levy a mandatory fee,взыскать обязательный сбор
+CARD_UNASSIGNED,UNASSIGNED CARD,НЕ НАЗНАЧЕННАЯ КАРТА
+CARD_COST,P {cost},Д {cost}
+CARD_RANK,RANK {rank},РАНГ {rank}
+CARD_READY,READY,ГОТОВА
+CARD_LOCKED,LOCKED,ЗАБЛОКИРОВАНА
+CARD_NO_EFFECT,NO REGISTERED EFFECT,НЕТ ЗАРЕГИСТРИРОВАННОГО ЭФФЕКТА
+CARD_INSPECTION,Inspection: {title} — {description},Проверка: {title} — {description}
+EFFECT_DAMAGE,Deal {amount} damage,Нанести {amount} урона
+EFFECT_BLOCK,Gain {amount} block,Получить {amount} защиты
+EFFECT_DRAW,Draw {amount} cards,Взять {amount} карт
+EFFECT_GAIN_DOOM,Gain {amount} Doom,Получить {amount} Рока
+EFFECT_GAIN_MULTIPLIER,Gain {amount} multiplier,Получить {amount} множителя
+EFFECT_SELF_DAMAGE,Take {amount} damage,Получить {amount} урона
+SUIT_BONE,BONE,КОСТЬ
+SUIT_BLOOD,BLOOD,КРОВЬ
+SUIT_FLESH,FLESH,ПЛОТЬ
+SUIT_SPIRIT,SPIRIT,ДУХ
+SUIT_GOLD,GOLD,ЗОЛОТО
+COMBO_NONE,No combination,Нет комбинации
+COMBO_PAIR,Pair,Пара
+COMBO_TRIPLE,Triple,Тройка
+COMBO_PROCESSION,Procession,Шествие
+COMBO_BLACK_MASS,Black Mass,Чёрная месса
+WEAKNESS_LATE_FEE,Late Fee,Просроченный сбор
+WEAKNESS_DELIRIUM,Delirium,Бред
+LOG_BATTLE_STARTED,Battle started.,Бой начался.
+LOG_CARD_PLAYED,{title}: {description},{title}: {description}
+LOG_NO_COMBINATION,The played cards form no combination.,Сыгранные карты не образуют комбинацию.
+LOG_COMBO_DAMAGE,{combo} deals {damage} ritual damage.,{combo} наносит {damage} ритуального урона.
+LOG_UNSCORED_CARDS,Unscored cards leave the ritual.,Неоценённые карты покидают ритуал.
+LOG_ENEMY_DAMAGE,Enemy deals {damage} damage.,Враг наносит {damage} урона.
+LOG_DEFEAT,Defeat.,Поражение.
+LOG_VICTORY,Victory.,Победа.
+LOG_WEAKNESS_TRIGGERED,{weakness} triggers.,Срабатывает: {weakness}.
+SETTINGS_LANGUAGE,Language,Язык
+LANGUAGE_ENGLISH,English,English
+LANGUAGE_RUSSIAN,Russian,Русский
+DEBUG_CARD_TITLE_1,Boiler Writ,Котловое предписание
+DEBUG_CARD_TITLE_2,Brass Reprieve,Латунная отсрочка
+DEBUG_CARD_TITLE_3,Late Stamp,Запоздалая печать
+DEBUG_CARD_TITLE_4,Ash Ledger,Пепельная книга
+DEBUG_CARD_TITLE_5,Union Ghost,Призрак союза
+DEBUG_CARD_DESCRIPTION,Full inspection text remains available through right click.,Полный текст проверки доступен по правому клику.
+DEBUG_LOG_KNOWN_HAND,Debug layout prepared with a known five-card hand.,Отладочный стол подготовлен с известной рукой из пяти карт.
+CARD_GRAVE_KICK_TITLE,Kick the Grave,Пнуть могилу
+CARD_GRAVE_KICK_DESCRIPTION,Deal 6 damage. The dead rarely appeal.,Нанесите 6 урона. Мёртвые редко подают апелляции.
+CARD_BONE_GUARD_TITLE,Bone Rebuttal,Костяная отговорка
+CARD_BONE_GUARD_DESCRIPTION,Gain 5 block. Formally it counts as individual protection.,Получите 5 защиты. Формально это считается индивидуальной защитой.
+CARD_HANGOVER_TITLE,Hangover,Похмелье
+CARD_HANGOVER_DESCRIPTION,Take 1 damage but gain 4 Doom. A weakness worth filing.,Получите 1 урона но 4 Рока. Слабость достойная регистрации.

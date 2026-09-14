@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=3 format=3]
+
+[ext_resource path="res://scripts/data/card_data.gd" type="Script" id="1"]
+[ext_resource path="res://scripts/data/effect_data.gd" type="Script" id="2"]
+
+[sub_resource type="Resource" id="Effect_damage"]
+script = ExtResource("2")
+type = 0
+amount = 6
+
+[resource]
+script = ExtResource("1")
+id = &"grave_kick"
+title_key = &"CARD_GRAVE_KICK_TITLE"
+description_key = &"CARD_GRAVE_KICK_DESCRIPTION"
+art_path = "res://assets/textures/cards/card_art_grave_kick_02.png"
+title = "Пнуть могилу"
+description = "Наносит 6 урона. Покойник жалобу уже не подаст."
+cost = 1
+rank = 3
+suit = 0
+rarity = 0
+tags = Array[StringName]([&"attack", &"bone"])
+effects = Array[ExtResource("2")]([SubResource("Effect_damage")])

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaknessData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weakness_data.gd" id="1_weakness"]
+[ext_resource type="Script" path="res://scripts/data/effect_data.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_self_damage"]
+script = ExtResource("2_effect")
+type = 5
+amount = 1
+
+[resource]
+script = ExtResource("1_weakness")
+id = &"late_fee"
+title_key = &"WEAKNESS_LATE_FEE"
+title = "Late Fee"
+description = "At the start of each enemy turn, lose 1 HP."
+trigger = 3
+effects = Array[ExtResource("2_effect")]([SubResource("Effect_self_damage")])

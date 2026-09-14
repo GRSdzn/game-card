@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=4 format=3]
+
+[ext_resource path="res://scripts/data/card_data.gd" type="Script" id="1"]
+[ext_resource path="res://scripts/data/effect_data.gd" type="Script" id="2"]
+
+[sub_resource type="Resource" id="Effect_self"]
+script = ExtResource("2")
+type = 5
+amount = 1
+
+[sub_resource type="Resource" id="Effect_doom"]
+script = ExtResource("2")
+type = 3
+amount = 4
+
+[resource]
+script = ExtResource("1")
+id = &"hangover"
+title_key = &"CARD_HANGOVER_TITLE"
+description_key = &"CARD_HANGOVER_DESCRIPTION"
+art_path = "res://assets/textures/cards/card_art_hangover_02.png"
+title = "Похмелье"
+description = "Получите 1 урон, но +4 Рока. Первый пример слабости, которую выгодно разыгрывать."
+cost = 0
+rank = 6
+suit = 1
+rarity = 3
+tags = Array[StringName]([&"curse", &"weakness", &"alcohol"])
+effects = Array[ExtResource("2")]([SubResource("Effect_self"), SubResource("Effect_doom")])

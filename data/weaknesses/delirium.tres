@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="WeaknessData" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weakness_data.gd" id="1_weakness"]
+[ext_resource type="Script" path="res://scripts/data/effect_data.gd" id="2_effect"]
+
+[sub_resource type="Resource" id="Effect_gain_doom"]
+script = ExtResource("2_effect")
+type = 3
+amount = 2
+
+[resource]
+script = ExtResource("1_weakness")
+id = &"delirium"
+title_key = &"WEAKNESS_DELIRIUM"
+title = "Delirium"
+description = "After a ritual scores, gain 2 Doom for the next ritual."
+trigger = 2
+effects = Array[ExtResource("2_effect")]([SubResource("Effect_gain_doom")])

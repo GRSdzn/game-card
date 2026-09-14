@@ -1,0 +1,5 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+ <radialGradient id="g"><stop offset="52%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity=".8"/></radialGradient>
+ <rect width="512" height="512" fill="url(#g)"/>
+ <path d="M0 40C70 20 94 90 160 64S276 23 340 72S437 72 512 36V0H0ZM0 472C75 422 131 501 205 455S337 438 417 477S477 460 512 432V512H0Z" fill="#080706" opacity=".5"/>
+</svg>
