@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="WeaknessData" load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/weakness_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/weakness_rule.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/data/effect_data.gd" id="3"]
+
+[sub_resource type="Resource" id="Gain"]
+script = ExtResource("3")
+type = 3
+amount = 3
+
+[sub_resource type="Resource" id="Cost"]
+script = ExtResource("3")
+type = 5
+amount = 2
+
+[sub_resource type="Resource" id="StartCost"]
+script = ExtResource("3")
+type = 5
+amount = 3
+
+[sub_resource type="Resource" id="Repeat"]
+script = ExtResource("2")
+trigger = 1
+condition = 1
+effects = Array[ExtResource("3")]([SubResource("Gain")])
+
+[sub_resource type="Resource" id="Change"]
+script = ExtResource("2")
+trigger = 1
+condition = 2
+effects = Array[ExtResource("3")]([SubResource("Cost")])
+
+[resource]
+script = ExtResource("1")
+id = &"obsession"
+title_key = &"VICE_OBSESSION_TITLE"
+description_key = &"VICE_OBSESSION_DESC"
+trigger = 0
+effects = Array[ExtResource("3")]([SubResource("StartCost")])
+rules = Array[ExtResource("2")]([SubResource("Repeat"), SubResource("Change")])

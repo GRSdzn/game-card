@@ -7,8 +7,10 @@ extends Control
 signal new_run_requested(seed_text: String)
 signal play_requested(card_data: CardData)
 signal inspect_requested(card_data: CardData)
+signal preview_requested(card_data: CardData)
 signal score_requested
 signal end_turn_requested
+signal machine_mode_requested(id: StringName)
 
 const HAND_VIEW_SCENE := preload("res://scenes/cards/hand_view.tscn")
 const CINEMATIC_IRON_TEXTURE := preload("res://assets/textures/materials/mat_black_iron_cinematic_01.png")
@@ -69,6 +71,26 @@ var ritual_counter_label: Label
 var ritual_status_light: Panel
 var inspector_integrity: ProgressBar
 var combo_dial_label: Label
+var forecast_label: Label
+var forecast_panel: Panel
+var demo_intent: String = ""
+var demo_intent_tooltip: String = ""
+var demo_enemy_max_hp: int = 24
+var demo_vice_tooltip: String = ""
+var forecast_text: String = ""
+var demo_ritual_text: String = ""
+var demo_end_turn_tooltip: String = ""
+var pressure_feedback: InstrumentFeedback
+var protection_feedback: InstrumentFeedback
+var enemy_turn_feedback: EnemyTurnFeedback
+var machine_feedback: MachineFeedback
+var machine_plate: Panel
+var machine_status: Label
+var machine_buttons: Array[Button] = []
+var machine_options: Array[Dictionary] = []
+var machine_status_text: String = ""
+var machine_available: bool = false
+var machine_charged: bool = false
 
 
 func _ready() -> void:
@@ -115,6 +137,10 @@ func render_battle(
 
 
 func clear_log() -> void:
+	if is_instance_valid(enemy_turn_feedback):
+		enemy_turn_feedback.cancel()
+	if is_instance_valid(machine_feedback):
+		machine_feedback.cancel()
 	log_entries.clear()
 	_render_log()
 
@@ -135,6 +161,17 @@ func _build_table() -> void:
 	_add_edge_instruments(stage)
 	_add_field_apparatus(stage)
 	IronStyleKit.add_vignette(stage)
+	enemy_turn_feedback = EnemyTurnFeedback.new()
+	enemy_turn_feedback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	add_child(enemy_turn_feedback)
+
+func show_enemy_attack(damage: int, blocked: int) -> void:
+	var origin := inspector_module.global_position + Vector2(_portrait_size() * 0.6, _inspector_dimensions().y * 0.4)
+	var destination := hp_vessel.get_global_rect().get_center()
+	if damage == 0:
+		destination.x += 48.0
+	enemy_turn_feedback.play_attack(origin - global_position, destination - global_position,
+		Rect2(battle_surface.global_position - global_position, battle_surface.size), end_turn_button, damage, blocked)
 
 
 func _add_environment(stage: Control) -> void:
@@ -244,6 +281,7 @@ func _add_battle_surface(stage: Control) -> void:
 	_add_player_board()
 	_add_event_strip()
 	_add_hand()
+	_add_forecast_plate()
 
 
 func _add_table_structure() -> void:
@@ -392,7 +430,11 @@ func _add_ritual_machine() -> void:
 	ritual_status_light.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	ritual_status_light.add_theme_stylebox_override("panel", _lamp_style(false, AMBER))
 	disc.add_child(ritual_status_light)
+	machine_feedback = MachineFeedback.new()
+	machine_feedback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	disc.add_child(machine_feedback)
 	var plate := Panel.new()
+	machine_plate = plate
 	plate.position = Vector2(machine_size - 28.0, machine_size * 0.27)
 	plate.size = Vector2(194.0, 76.0)
 	plate.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -410,6 +452,60 @@ func _add_ritual_machine() -> void:
 	score_button.size = Vector2(170.0, 24.0)
 	score_button.pressed.connect(func() -> void: score_requested.emit())
 	plate.add_child(score_button)
+	machine_status = _label("", 11, AMBER)
+	machine_status.position = Vector2(12, 73)
+	machine_status.size = Vector2(170, 32)
+	machine_status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	machine_status.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	plate.add_child(machine_status)
+	machine_buttons.clear()
+	for index in 2:
+		var button := _mechanical_button("", false)
+		button.position = Vector2(12, 108 + index * 37)
+		button.size = Vector2(170, 34)
+		button.add_theme_font_size_override("font_size", 11)
+		button.pressed.connect(func() -> void:
+			if index < machine_options.size():
+				machine_mode_requested.emit(machine_options[index]["id"])
+		)
+		plate.add_child(button)
+		machine_buttons.append(button)
+	_apply_machine_details()
+
+func render_machine_options(options: Array[Dictionary], status: String, available: bool, charged: bool) -> void:
+	machine_options = options
+	machine_status_text = status
+	machine_available = available
+	machine_charged = charged
+	_apply_machine_details()
+
+func _apply_machine_details() -> void:
+	if machine_plate == null:
+		return
+	var show_controls := not machine_options.is_empty()
+	machine_plate.size.y = 188 if show_controls else 76
+	machine_status.visible = show_controls
+	machine_status.text = machine_status_text
+	machine_status.add_theme_color_override("font_color", DANGER if machine_charged else AMBER)
+	for index in machine_buttons.size():
+		var button := machine_buttons[index]
+		button.visible = index < machine_options.size()
+		if button.visible:
+			button.text = machine_options[index]["title"]
+			button.tooltip_text = machine_options[index]["description"]
+			button.add_theme_color_override("font_color", DANGER if machine_options[index].get("lethal", false) else PARCHMENT)
+			button.disabled = not machine_available
+	machine_feedback.present(machine_available, machine_charged)
+	if is_instance_valid(pressure_feedback):
+		pressure_feedback.overpressure = machine_available or machine_charged
+
+func show_machine_release(charged: bool) -> void:
+	pressure_feedback.burst_age = 0.0
+	if not charged:
+		machine_feedback.discharge()
+
+func show_machine_discharge() -> void:
+	machine_feedback.discharge()
 
 
 func _add_player_board() -> void:
@@ -453,9 +549,11 @@ func _add_hand() -> void:
 	hand_view.offset_right = -24.0
 	hand_view.offset_top = -_hand_height()
 	hand_view.offset_bottom = 0.0
-	hand_view.mouse_filter = Control.MOUSE_FILTER_PASS
+	# Only cards receive input; the empty fan bounds must not cover machine levers.
+	hand_view.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hand_view.play_requested.connect(_on_card_play_requested)
 	hand_view.inspect_requested.connect(_on_card_inspect_requested)
+	hand_view.preview_requested.connect(func(card: CardData) -> void: preview_requested.emit(card))
 	battle_surface.add_child(hand_view)
 	var hand_light := Panel.new()
 	hand_light.anchor_left = 0.17
@@ -494,6 +592,10 @@ func _add_edge_instruments(stage: Control) -> void:
 	hp_vessel.add_theme_stylebox_override("background", _frame_style(Color("080a09"), Color("5f4a35"), 2, 12, 0))
 	hp_vessel.add_theme_stylebox_override("fill", _frame_style(Color("7d2829"), DANGER, 1, 10, 0))
 	vessel_housing.add_child(hp_vessel)
+	protection_feedback = InstrumentFeedback.new()
+	protection_feedback.kind = InstrumentFeedback.Kind.PROTECTION
+	protection_feedback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	vessel_housing.add_child(protection_feedback)
 	player_label = _label("", 11, PARCHMENT)
 	player_label.position = Vector2(0.0, vessel_h + 34.0)
 	player_label.size = Vector2(100.0, 44.0)
@@ -556,6 +658,10 @@ func _build_pressure_gauge() -> Control:
 	pressure_needle.pivot_offset = Vector2(1.5, 28.0)
 	pressure_needle.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	gauge.add_child(pressure_needle)
+	pressure_feedback = InstrumentFeedback.new()
+	pressure_feedback.needle = pressure_needle
+	pressure_feedback.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	gauge.add_child(pressure_feedback)
 	return gauge
 
 
@@ -685,7 +791,8 @@ func _apply_view_state() -> void:
 	player_label.text = "%d / %d\n%s %d" % [current_state.player_hp, current_state.max_player_hp, _t(&"UI_BLOCK"), current_state.player_block]
 	hp_vessel.value = clampf(float(current_state.player_hp) / maxf(1.0, float(current_state.max_player_hp)) * 100.0, 0.0, 100.0)
 	pressure_label.text = "%s\n%d / %d" % [_t(&"UI_PRESSURE"), current_state.energy, current_state.max_energy]
-	pressure_needle.rotation = lerpf(-1.12, 1.12, float(current_state.energy) / maxf(1.0, float(current_state.max_energy)))
+	pressure_feedback.present(current_state.energy, current_state.max_energy, current_state.is_active)
+	protection_feedback.present(current_state.player_block, 1, current_state.is_active)
 	for index in pressure_lamps.size():
 		pressure_lamps[index].add_theme_stylebox_override("panel", _lamp_style(index < current_state.energy, AMBER))
 	doom_label.text = "%s\n%d  ×%d" % [_t(&"UI_DOOM_DIAL"), current_state.doom, current_state.multiplier]
@@ -705,6 +812,56 @@ func _apply_view_state() -> void:
 	score_button.disabled = not current_state.can_score
 	end_turn_button.disabled = not current_state.is_active
 	hand_view.set_hand(current_state.hand, current_state.playable_cards)
+	_apply_demo_details()
+
+func render_demo_details(intent_text: String, intent_tooltip: String, max_hp: int, vice_tooltip: String) -> void:
+	demo_intent = intent_text
+	demo_intent_tooltip = intent_tooltip
+	demo_enemy_max_hp = max_hp
+	demo_vice_tooltip = vice_tooltip
+	_apply_demo_details()
+
+func _apply_demo_details() -> void:
+	if demo_intent.is_empty() or current_state == null:
+		return
+	enemy_label.text = "%s: %d / %d\n%s" % [_t(&"BATTLE_INTEGRITY"), current_state.enemy_hp, demo_enemy_max_hp, demo_intent]
+	enemy_label.tooltip_text = demo_intent_tooltip
+	inspector_integrity.value = float(current_state.enemy_hp) / maxf(1, demo_enemy_max_hp) * 100.0
+	weaknesses_label.tooltip_text = demo_vice_tooltip
+	enemy_row.visible = false
+	player_board_row.visible = false
+	forecast_panel.visible = current_state.is_active
+	forecast_label.text = forecast_text
+	if not demo_ritual_text.is_empty():
+		ritual_label.text = demo_ritual_text
+	end_turn_button.tooltip_text = demo_end_turn_tooltip
+	_apply_machine_details()
+
+func render_ritual_summary(text: String, turn_tooltip: String) -> void:
+	demo_ritual_text = text
+	demo_end_turn_tooltip = turn_tooltip
+	_apply_demo_details()
+
+func render_forecast(text: String) -> void:
+	forecast_text = text
+	if forecast_label != null:
+		forecast_label.text = text
+
+func _add_forecast_plate() -> void:
+	forecast_panel = Panel.new()
+	_place_centered(forecast_panel, _ritual_y() + 8.0, 252.0, 196.0)
+	forecast_panel.offset_left -= _ritual_size() * 0.5 + 146.0
+	forecast_panel.offset_right -= _ritual_size() * 0.5 + 146.0
+	forecast_panel.add_theme_stylebox_override("panel", _frame_style(IRON, BRASS, 4, 2, 6))
+	forecast_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	forecast_panel.visible = false
+	battle_surface.add_child(forecast_panel)
+	_add_texture(forecast_panel, CINEMATIC_IRON_TEXTURE, 0.22, TextureRect.STRETCH_SCALE)
+	IronStyleKit.add_frame(forecast_panel, IronStyleKit.FrameLevel.UTILITY)
+	forecast_label = _label("", 14, PARCHMENT)
+	forecast_label.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT, Control.PRESET_MODE_MINSIZE, 16)
+	forecast_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	forecast_panel.add_child(forecast_label)
 
 
 func _render_log() -> void:

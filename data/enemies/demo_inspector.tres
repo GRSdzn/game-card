@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EncounterData" load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/encounter_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/enemy_intent_data.gd" id="2"]
+
+[sub_resource type="Resource" id="Fee"]
+script = ExtResource("2")
+id = &"inspection_fee"
+title_key = &"INTENT_FEE"
+damage = 5
+
+[sub_resource type="Resource" id="Audit"]
+script = ExtResource("2")
+id = &"punitive_audit"
+title_key = &"INTENT_AUDIT"
+damage = 11
+reduction_per_ritual = 4
+minimum_damage = 3
+
+[resource]
+script = ExtResource("1")
+id = &"demo_inspector"
+max_hp = 48
+intents = Array[ExtResource("2")]([SubResource("Fee"), SubResource("Audit")])

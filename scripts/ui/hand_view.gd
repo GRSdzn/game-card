@@ -3,6 +3,7 @@ extends Control
 
 signal play_requested(card_data: CardData)
 signal inspect_requested(card_data: CardData)
+signal preview_requested(card_data: CardData)
 
 const CARD_VIEW_SCENE := preload("res://scenes/cards/card_view.tscn")
 
@@ -19,6 +20,7 @@ func set_hand(cards: Array[CardData], playable_cards: Array[bool]) -> void:
 		card_view.display_card(cards[index], index < playable_cards.size() and playable_cards[index])
 		card_view.play_requested.connect(_on_card_play_requested)
 		card_view.inspect_requested.connect(_on_card_inspect_requested)
+		card_view.preview_requested.connect(func(card: CardData) -> void: preview_requested.emit(card))
 		card_views.append(card_view)
 	call_deferred("_layout_cards")
 

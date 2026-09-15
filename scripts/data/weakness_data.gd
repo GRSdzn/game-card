@@ -11,6 +11,7 @@ enum Trigger { BATTLE_STARTED, CARD_PLAYED, RITUAL_SCORED, ENEMY_TURN_STARTED }
 @export var description_key: StringName
 @export var trigger: Trigger = Trigger.BATTLE_STARTED
 @export var effects: Array[EffectData] = []
+@export var rules: Array[WeaknessRule] = []
 
 func trigger_name() -> String:
 	return Trigger.keys()[trigger].capitalize().replace("_", " ")

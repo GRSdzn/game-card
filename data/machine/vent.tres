@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MachineModeData" load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/data/machine_mode_data.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/data/effect_data.gd" id="2"]
+
+[sub_resource type="Resource" id="Block"]
+script = ExtResource("2")
+type = 1
+amount = 4
+
+[resource]
+script = ExtResource("1")
+id = &"vent"
+title_key = &"MACHINE_VENT"
+status_key = &"MACHINE_VENTED"
+pressure_cost = 1
+activation_effects = Array[ExtResource("2")]([SubResource("Block")])

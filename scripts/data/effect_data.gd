@@ -9,6 +9,7 @@ enum Type {
 	GAIN_DOOM,
 	GAIN_MULTIPLIER,
 	SELF_DAMAGE,
+	ATTACK_PLAYER,
 }
 
 @export var type: Type = Type.DAMAGE
@@ -22,4 +23,5 @@ func describe() -> String:
 		Type.GAIN_DOOM: return LocalizationManager.translate(&"EFFECT_GAIN_DOOM", {"amount": amount})
 		Type.GAIN_MULTIPLIER: return LocalizationManager.translate(&"EFFECT_GAIN_MULTIPLIER", {"amount": amount})
 		Type.SELF_DAMAGE: return LocalizationManager.translate(&"EFFECT_SELF_DAMAGE", {"amount": amount})
+		Type.ATTACK_PLAYER: return LocalizationManager.translate(&"EFFECT_ATTACK_PLAYER", {"amount": amount})
 	return LocalizationManager.translate(&"CARD_NO_EFFECT")

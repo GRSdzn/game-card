@@ -66,6 +66,8 @@ LOG_UNSCORED_CARDS,Unscored cards leave the ritual.,Неоценённые ка�
 LOG_ENEMY_DAMAGE,Enemy deals {damage} damage.,Враг наносит {damage} урона.
 LOG_DEFEAT,Defeat.,Поражение.
 LOG_VICTORY,Victory.,Победа.
+BATTLE_RESULT_VICTORY,VICTORY,ПОБЕДА
+BATTLE_RESULT_DEFEAT,DEFEAT,ПОРАЖЕНИЕ
 LOG_WEAKNESS_TRIGGERED,{weakness} triggers.,Срабатывает: {weakness}.
 SETTINGS_LANGUAGE,Language,Язык
 LANGUAGE_ENGLISH,English,English
@@ -83,3 +85,53 @@ CARD_BONE_GUARD_TITLE,Bone Rebuttal,Костяная отговорка
 CARD_BONE_GUARD_DESCRIPTION,Gain 5 block. Formally it counts as individual protection.,Получите 5 защиты. Формально это считается индивидуальной защитой.
 CARD_HANGOVER_TITLE,Hangover,Похмелье
 CARD_HANGOVER_DESCRIPTION,Take 1 damage but gain 4 Doom. A weakness worth filing.,Получите 1 урона но 4 Рока. Слабость достойная регистрации.
+VICE_GREED_TITLE,Greed,Жадность
+VICE_GREED_DESC,Before each enemy attack: lose 1 HP and gain 3 Doom per card left in hand. Block cannot prevent this cost.,Перед атакой врага: −1 ОЗ и +3 Рока за каждую оставшуюся в руке карту. Защита не спасает от этой платы.
+VICE_OBSESSION_TITLE,Obsession,Одержимость
+VICE_OBSESSION_DESC,Start each battle: lose 3 HP. Repeat the previous card's suit this turn: +3 Doom. Change suit: lose 2 HP. The first card is neutral.,В начале каждого боя: −3 ОЗ. Повтор масти предыдущей карты в этом ходу: +3 Рока. Смена масти: −2 ОЗ. Первая карта нейтральна.
+INTENT_FEE,Inspection fee,Сбор
+INTENT_AUDIT,Punitive audit,Проверка
+INTENT_LINE,{title}: attack {damage},{title}: атака {damage}
+INTENT_DETAIL,Incoming attack: {damage}. Your block: {block}.,Атака врага: {damage}. Ваша защита: {block}.
+INTENT_MITIGATION,Each sealed ritual reduces this attack by {amount} (minimum {minimum}).,Каждый завершённый ритуал снижает эту атаку на {amount} (минимум {minimum}).
+REWARD_REPAIR_TITLE,Emergency repair,Аварийный ремонт
+REWARD_REPAIR_DESC,Restore 8 HP up to your maximum.,Восстановить 8 ОЗ до максимума.
+REWARD_REINFORCE_TITLE,Reinforced vessel,Усиленный сосуд
+REWARD_REINFORCE_DESC,Gain 4 maximum HP and restore 4 HP. Lasts until a new run.,Повысить максимум ОЗ на 4 и восстановить 4 ОЗ. Действует до нового забега.
+DEMO_CHOOSE_TITLE,PERSONNEL DEFECT REGISTER,РЕЕСТР ДЕФЕКТОВ ПЕРСОНАЛА
+DEMO_CHOOSE_BODY,Choose a Vice for this run. Hover a card to forecast play + ritual; left-click to play. Seal matching ranks or a curse-only set. The Inspector alternates attacks of 5 and 11; each ritual reduces the 11 attack by 4 (minimum 3).,Выберите порок на забег. Наведение — прогноз карты и ритуала; ЛКМ — розыгрыш. Собирайте одинаковые ранги или одни проклятия. Атаки Инспектора: 5 и 11 по очереди; каждый ритуал снижает атаку 11 на 4 (минимум 3).
+DEMO_REWARD_TITLE,SHIFT ACCEPTED — SELECT COMPENSATION,СМЕНА ПРИНЯТА — ВЫБЕРИТЕ КОМПЕНСАЦИЮ
+DEMO_REWARD_BODY,Inspector defeated. HP: {hp}/{max}. Claim one reward; it carries into the next shift.,Инспектор повержен. ОЗ: {hp}/{max}. Выберите одну награду — она сохранится на следующую смену.
+DEMO_COMPLETE_TITLE,COMPENSATION ISSUED,КОМПЕНСАЦИЯ ВЫДАНА
+DEMO_COMPLETE_BODY,Shifts completed: {shift}. HP: {hp}/{max}. The next Inspector uses the same rules. Your Vice and health carry over; a new run resets them.,Завершено смен: {shift}. ОЗ: {hp}/{max}. Следующий Инспектор действует по тем же правилам. Порок и здоровье сохраняются; новый забег сбрасывает их.
+DEMO_CONTINUE,REPORT FOR NEXT SHIFT,НА СЛЕДУЮЩУЮ СМЕНУ
+DEMO_RESTART,NEW RUN — CHOOSE ANOTHER VICE,НОВЫЙ ЗАБЕГ — ВЫБРАТЬ ПОРОК
+DEMO_DEFEAT_TITLE,EMPLOYEE DECOMMISSIONED,СОТРУДНИК СПИСАН
+DEMO_DEFEAT_BODY,Your health reached zero. Compensation is unavailable. Restart with the same seed and try a different approach.,Здоровье исчерпано. Компенсация не положена. Начните с тем же сидом и попробуйте другую тактику.
+PREVIEW_NOW,SEAL NOW,ЗАПЕЧАТАТЬ СЕЙЧАС
+PREVIEW_LOCKED,Not enough Pressure or battle ended.,Не хватает Давления или бой окончен.
+PREVIEW_LETHAL,LETHAL COST — defeat,СМЕРТЕЛЬНАЯ ПЛАТА — поражение
+PREVIEW_CARD_VICTORY,Card ends the battle.,Карта завершает бой.
+PREVIEW_COMBO,{combo}: ritual {damage},{combo}: ритуал {damage}
+PREVIEW_BREAKS,Breaks the current combination!,Разрушит комбинацию!
+PREVIEW_NO_COMBO,No combo: match ranks or play only curses.,Нет комбо: нужны равные ранги или одни проклятия.
+PREVIEW_CHANGE,HP {hp} · Block {block}\nCard damage: {damage},ОЗ {hp} · Защита {block}\nУрон карты: {damage}
+PREVIEW_AFTER,Doom after: {doom},Рок после: {doom}
+PREVIEW_ENEMY,Enemy attack after seal: {damage},Атака врага после: {damage}
+END_TURN_FORECAST,End turn now: lose {hp_loss} HP after Vice costs and block; gain {doom_gain} Doom. Unsealed cards are cleared.,Завершить ход сейчас: потеря {hp_loss} ОЗ с учётом порока и защиты; прирост Рока {doom_gain}. Незавершённая комбинация сбросится.
+EFFECT_ATTACK_PLAYER,Attack player for {amount} (blocked),Атака по игроку: {amount} (учитывает защиту)
+TURN_HIT,−{damage} HP · blocked {blocked},−{damage} ОЗ · защита {blocked}
+TURN_BLOCKED,ATTACK BLOCKED · {blocked},АТАКА ОТБИТА · {blocked}
+MACHINE_VENT,VENT STEAM,СТРАВИТЬ ПАР
+MACHINE_OVERLOAD,OVERLOAD,ПЕРЕГРУЗИТЬ
+MACHINE_READY,FULL PRESSURE · 1 Pressure per mode,ПРЕДЕЛ · режим стоит 1 ед. давления
+MACHINE_LOCKED,Requires full Pressure (3/3),Нужно полное давление (3/3)
+MACHINE_SPENT,Valve locked until next turn,Клапан закрыт до следующего хода
+MACHINE_ARMED,OVERLOAD · next ritual this turn,ПЕРЕГРУЗКА · на один ритуал в этом ходу
+MACHINE_VENTED,Steam vented. Armour reinforced.,Пар стравлен. Защита усилена.
+MACHINE_EXPIRED,Unused overload lost at end of turn.,Неиспользованная перегрузка сгорела в конце хода.
+MACHINE_BOOST_COST,−{hp_loss} HP · +{bonus} ritual damage,−{hp_loss} ОЗ · +{bonus} к ритуалу
+MACHINE_VENT_GAIN,+{block} Block,+{block} защиты
+MACHINE_PRESSURE_COST,Cost: {pressure} Pressure. Once per turn at 3/3.,Цена: {pressure} ед. давления. Раз в ход при 3/3.
+MACHINE_RISK_RULE,HP is paid immediately through Block. Can kill you. Flat bonus to the next valid ritual; expires this turn. Normal card play is also allowed.,ОЗ списываются сразу сквозь защиту. Можно погибнуть. Бонус прибавляется к итоговому урону следующего ритуала и сгорает в конце хода. Можно просто играть карты.
+MACHINE_LETHAL,LETHAL COST — defeat,СМЕРТЕЛЬНО — поражение

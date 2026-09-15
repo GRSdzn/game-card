@@ -17,3 +17,5 @@ static func resolve(effect: EffectData, context: EffectContext) -> void:
 			context.multiplier += effect.amount
 		EffectData.Type.SELF_DAMAGE:
 			context.player_hp = maxi(0, context.player_hp - effect.amount)
+		EffectData.Type.ATTACK_PLAYER:
+			context.player_hp = maxi(0, context.player_hp - maxi(0, effect.amount - context.player_block))

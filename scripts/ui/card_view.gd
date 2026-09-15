@@ -3,6 +3,7 @@ extends Control
 
 signal play_requested(card_data: CardData)
 signal inspect_requested(card_data: CardData)
+signal preview_requested(card_data: CardData)
 
 const CARD_SIZE := Vector2(142, 214)
 const HOVER_LIFT := -30.0
@@ -64,11 +65,13 @@ func _on_mouse_entered() -> void:
 	is_hovered = true
 	z_index = 100
 	_update_presentation(false)
+	preview_requested.emit(card_data)
 
 func _on_mouse_exited() -> void:
 	is_hovered = false
 	z_index = base_z_index
 	_update_presentation(false)
+	preview_requested.emit(null)
 
 func _on_gui_input(event: InputEvent) -> void:
 	if card_data == null or not event is InputEventMouseButton or not event.pressed:

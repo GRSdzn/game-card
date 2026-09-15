@@ -84,6 +84,11 @@ func _test_main_integration() -> bool:
 	await get_tree().process_frame
 	var main_table := main.get("battle_table") as BattleTable
 	var battle := main.get("battle") as BattleController
+	var demo := main.get("demo") as DemoRunController
+	if not _expect(demo.phase == DemoRunController.Phase.CHOOSING, "Main must offer a Vice before battle."):
+		return false
+	main.get("flow_view").choice_requested.emit(&"vice", &"greed")
+	await get_tree().process_frame
 	if not _expect(main_table.hand_view.card_count() == BattleController.HAND_SIZE, "Main scene must render the starter hand."):
 		return false
 	var first_card_view := main_table.hand_view.card_views[0]
